@@ -4,9 +4,284 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaskLinerClientApp"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Task Liner" Height="450" Width="800" 
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStyle="None"
+        ResizeMode="CanResizeWithGrip"
+        FontFamily="Helvetica" 
+        FontSize="18" 
+        WindowStartupLocation="CenterScreen">
 
+    <Window.Resources>
+        
+        <!-- Шаблон для кнопки -->
+        <SolidColorBrush x:Key="tb_mouse_over" Color="White" Opacity="0.3"/>
+
+        <!-- Стиль шрифта текста -->
+        <Style x:Key="font_style" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Helvetica"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+
+        
+        <!-- Стиль всплывающей подсказки -->
+        <Style TargetType="ToolTip" x:Key="tooltip_style">
+            <Setter Property="Placement" Value="Right"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Margin" Value="20,0,0,0"/>
+            <Setter Property="Background" Value="DimGray"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Helvetica"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="PlacementRectangle" Value="70,0,0,0"/>
+            <Setter Property="HorizontalOffset" Value="15"/>
+            <Setter Property="VerticalOffset" Value="6"/>
+            <Setter Property="HasDropShadow" Value="True"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+
+        </Style>
+
+            <Style x:Key="tb_style" TargetType="{x:Type ToggleButton}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border x:Name="border"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}"
+                                SnapsToDevicePixels="True">
+                            
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background"
+                                        TargetName="border"
+                                        Value="{StaticResource tb_mouse_over}"/>
+                                <Setter Property="BorderBrush"
+                                        TargetName="border"
+                                        Value="{StaticResource tb_mouse_over}"/>
+                            </Trigger>
+
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background"
+                                        TargetName="border"
+                                        Value="{StaticResource tb_mouse_over}"/>
+                                <Setter Property="BorderBrush"
+                                        TargetName="border"
+                                        Value="{StaticResource tb_mouse_over}"/>
+
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+    
+    
+    <Grid>
+        <!-- Установка заднего фона -->
+        <Border CornerRadius="10" Grid.RowSpan="3">
+            <Border.Background>
+                <LinearGradientBrush>
+                    <GradientStop Color="#D8B5FF" Offset="0.0"/>
+                    <GradientStop Color="#1EAE98" Offset="1.0"/>
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+        
+        <!-- Настройка окна -->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <!-- Настройка заголовка окна -->
+            <StackPanel Grid.Row="0">
+                <Grid HorizontalAlignment="Stretch">
+                    <Label Content="TaskLiner" 
+                           FontSize="16" 
+                           FontFamily="Helvetica"
+                           Opacity="0.7" Margin="0,0,0,-10">
+                        <Label.Foreground>
+                            <SolidColorBrush Color="White" Opacity="0.7"/>
+                        </Label.Foreground>
+                        <Label.Background>
+                            <SolidColorBrush Color="Black" Opacity="0.5" />
+                        </Label.Background>
+                    </Label>
+
+                    <!-- Кнопки управления окном -->
+                    <StackPanel HorizontalAlignment="Right"
+                                Orientation="Horizontal" 
+                                Margin="0,0,3,0">
+                        <Button Width="20" Height="20" Content="__" Margin="2,0,2,0" FontSize="10" Click="ButtonMinimize_Click"/>
+                        <Button Width="20" Height="20" Content="▢" Margin="2,0,2,0"  FontSize="15" Click="ButtonMinimize_Click"/>
+                        <Button Width="20" Height="20" Content="X" Margin="2,0,2,0"  FontSize="15" Click="ButtonClose_Click"/>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+
+            <!-- Содержимое главного окна -->
+            <StackPanel Grid.Row="1">
+                <Grid HorizontalAlignment="Left">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Навигационный - бар главного окна -->
+                    <StackPanel Grid.Column="0" Opacity="1" Height="420" x:Name="nav_pnl">
+                        <StackPanel.Background>
+                            <SolidColorBrush Color="Black" Opacity="0.4"/>
+                        </StackPanel.Background>
+                        <!-- Сетка для заголовка навигационного бара -->
+                        <Grid Height="90">
+                            <TextBlock Grid.Row="1"
+                                       Grid.Column="0"
+                                       Margin="73,-20,0,0"
+                                       Text="MENU"
+                                       Foreground="White"
+                                       Background="Transparent"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       Style="{StaticResource font_style}">
+                                <TextBlock.Effect>
+                                    <DropShadowEffect BlurRadius="10"
+                                                      ShadowDepth="1"
+                                                      Direction="-90"
+                                                      Color="White"/>
+                                </TextBlock.Effect>
+                            </TextBlock>
+
+                            <ToggleButton x:Name="Tg_NavBar"
+                                          Grid.Column="0"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"
+                                          Height="30"
+                                          Margin="10,-20,0,0"
+                                          Width="30"
+                                          BorderThickness="0"
+                                          Background="Transparent"
+                                          >
+                                <iconPacks:PackIconMaterial Kind="Menu" 
+                                                            VerticalAlignment="Center" 
+                                                            HorizontalAlignment="Center" 
+                                                            Foreground="White"
+                                                            Background="Transparent"/>
+                                
+                                <!-- Кнопка нажата, отжата -->
+                                <ToggleButton.Triggers>
+                                    <EventTrigger RoutedEvent="ToggleButton.Unchecked">
+                                        <BeginStoryboard>
+                                            <Storyboard x:Name="HideStackPanel">
+                                                <DoubleAnimation
+                                                    Storyboard.TargetName="nav_pnl"
+                                                    Storyboard.TargetProperty="Width"
+                                                    BeginTime="0:0:0"
+                                                    From="230"
+                                                    To="50"
+                                                    Duration="0:0:0.2"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+
+                                    <EventTrigger RoutedEvent="ToggleButton.Checked">
+                                        <BeginStoryboard>
+                                            <Storyboard x:Name="ShowStackPanel">
+                                                <DoubleAnimation 
+                                                    Storyboard.TargetName="nav_pnl"
+                                                    Storyboard.TargetProperty="Width"
+                                                    BeginTime="0:0:0"
+                                                    From="50"
+                                                    To="230"
+                                                    Duration="0:0:0.3"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                    
+                                </ToggleButton.Triggers>
+                            
+                            </ToggleButton>
+                        </Grid>
+                        
+                        <!-- Элементы меню -->
+
+                        <ListView x:Name="MenuItems"
+                                  Background="Transparent"
+                                  BorderBrush="Transparent"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                            
+                            <!-- Кнопка Home -->
+                            <ListViewItem HorizontalAlignment="Left"
+                                          Margin="5,0,0,15">
+                                <StackPanel Orientation="Horizontal"
+                                            Width="230">
+
+                                    <iconPacks:PackIconMaterial Kind="Home" 
+                                                            VerticalAlignment="Center" 
+                                                            HorizontalAlignment="Center" 
+                                                            Foreground="White"
+                                                            Background="Transparent"
+                                                                Width="30"
+                                                                Height="30"/>
+                                    <TextBlock Text="Home"
+                                               Margin="25,0,0,0"
+                                               Style="{StaticResource font_style}"/>
+                                </StackPanel>
+                                
+                                <!-- Всплывающие подсказки -->
+                                <ListViewItem.ToolTip>
+                                    <ToolTip x:Name="tt_home" 
+                                             Content="Home"
+                                             Style="{StaticResource tooltip_style}"/>
+
+                                </ListViewItem.ToolTip>
+                                                      
+                            </ListViewItem>
+                                          
+                            <!-- Кнопка Home -->
+                            <ListViewItem HorizontalAlignment="Left"
+                                          Margin="5,0,0,15">
+                                <StackPanel Orientation="Horizontal"
+                                            Width="230">
+
+                                    <iconPacks:PackIconMaterial Kind="Home" 
+                                                            VerticalAlignment="Center" 
+                                                            HorizontalAlignment="Center" 
+                                                            Foreground="White"
+                                                            Background="Transparent"
+                                                                Width="30"
+                                                                Height="30"/>
+                                    <TextBlock Text="Home"
+                                               Margin="25,0,0,0"
+                                               Style="{StaticResource font_style}"/>
+                                </StackPanel>
+                                
+                                <!-- Всплывающие подсказки -->
+                                <ListViewItem.ToolTip>
+                                    <ToolTip x:Name="tt_idk" 
+                                             Content="Home"
+                                             Style="{StaticResource tooltip_style}"/>
+
+                                </ListViewItem.ToolTip>
+                                                      
+                            </ListViewItem>
+                            
+                        </ListView>
+                        
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>
