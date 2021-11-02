@@ -2,8 +2,21 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="4.11.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\TaskLiner\TaskLiner\TaskLiner.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\Image\" />
+    <Folder Include="Windows\" />
+  </ItemGroup>
 
 </Project>
