@@ -4,19 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TaskLiner.DB.Entity;
+using TaskLinerClientApp.Models;
 
 namespace TaskLinerClientApp.Auth
 {
-    interface IAuthenticator
+    public interface IAuthenticator
     {
         User CurrentUser { get; }
 
         bool IsLoggedIn { get; }
 
 
-        Task<RegistrationResult> Register(string email, string password);
+        Task<RegistrationResult> Register(UserRegistrationModel registrationModel);
 
-        Task<bool> Login(string username, string password);
+        Task<bool> Login(UserIdentityModel userIdentity);
 
         void Logout();
     }

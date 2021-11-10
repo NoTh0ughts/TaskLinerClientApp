@@ -1,8 +1,7 @@
 ﻿<Application x:Class="TaskLinerClientApp.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:TaskLinerClientApp" 
-             StartupUri="AuthWindow.xaml">
+             xmlns:local="clr-namespace:TaskLinerClientApp">
     
     <Application.Resources>
         <ResourceDictionary>

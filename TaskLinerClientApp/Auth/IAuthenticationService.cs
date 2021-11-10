@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TaskLiner.DB.Entity;
+using TaskLinerClientApp.Models;
 
 namespace TaskLinerClientApp.Auth
 {
@@ -14,10 +15,10 @@ namespace TaskLinerClientApp.Auth
         UserNameAlreadyExists
     }
 
-    interface IAuthenticationService
+    public interface IAuthenticationService
     {
-        Task<RegistrationResult> Register(string email, string password);
+        Task<RegistrationResult> Register(UserRegistrationModel registrationModel);
 
-        Task<User> Login(string username, string password); 
+        Task<bool> Login(UserIdentityModel userIdentity);
     }
 }

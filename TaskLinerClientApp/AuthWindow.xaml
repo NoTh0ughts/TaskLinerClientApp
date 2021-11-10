@@ -3,13 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks" 
+        xmlns:local="clr-namespace:TaskLinerClientApp" 
+        xmlns:viewmodels="clr-namespace:TaskLinerClientApp.ViewModels" 
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d"
         Title="Auth Window" Height="450" Width="360"
         AllowsTransparency="True" Background="Transparent"
         WindowStyle="None" ResizeMode="NoResize"
         MouseDown="WindowDrag">
-        
+
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
@@ -41,85 +44,119 @@
                     <StackPanel HorizontalAlignment="Right"
                                 Orientation="Horizontal" 
                                 Margin="0,0,3,0">
-                        <Button Width="20" Height="20" FontSize="11" Content="_" Margin="2,0,2,0" Click="ButtonMinimize_Click"/>
-                        <Button Width="20" Height="20" FontSize="11" Content="X" Margin="2,0,2,0" Click="ButtonClose_Click"/>
+                        <Button Width="20"  Style="{StaticResource single_button}"
+                                Height="20" FontSize="11" 
+                                Content="_" Margin="2,0,2,0" Click="ButtonMinimize_Click"/>
+                        <Button Width="20"  Style="{StaticResource single_button}"
+                                Height="20" FontSize="11" 
+                                Content="X" Margin="2,0,2,0" Click="ButtonClose_Click"/>
                     </StackPanel>
                 </Grid>
             </StackPanel>
-            
-           
+
+
 
             <StackPanel Grid.Row="2">
-                <StackPanel Orientation="Horizontal">
-                    <TextBox FontFamily="Helvetica"
-                         FontWeight="Light"
-                         FontSize ="20"
-                         Text="Username"
-                         Foreground="White"
-                         Background="Transparent"
-                         HorizontalAlignment="Center"
-                         BorderThickness="0"
-                         Width="235"
-                         HorizontalContentAlignment="Left"
-                         Opacity="0.5"
-                         Height="25"
-                         Margin="55,0,0,0" 
-                         MaxLines="1" 
-                         MaxLength="45"
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" 
+                                Orientation="Horizontal" 
+                                HorizontalAlignment="Center">
+                        <Label Content="Ivalid login or password" FontSize="16"
+                               FontFamily="Helvetica" HorizontalAlignment="Center"
+                               Foreground="DarkRed" Visibility="{Binding WrongIdentityText}"
+                        />
+                    </StackPanel>
+                    <StackPanel Grid.Row="1"
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top"
+                            >
+                        <TextBox FontFamily="Helvetica"
+                                 FontWeight="Light"
+                                 FontSize ="20"
+                                 Text="{Binding Username}"
+                                 Foreground="White"
+                                 Background="Transparent"
+                                 HorizontalAlignment="Center"
+                                 BorderThickness="0"
+                                 Width="230"
+                                 HorizontalContentAlignment="Left"
+                                 Opacity="0.5"
+                                 Height="25"
+                                 MaxLines="1" 
+                                 MaxLength="45"/>
+
+                        <iconPacks:PackIconMaterial Kind="Account"
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Center"
+                                                    Foreground="White"/>
+                    </StackPanel>
+                    <Border Grid.Row="1" 
+                            Width="250"
+                            Height="2"
+                            Background="White"
+                            Opacity="0.6"/>
+
+
+                    <StackPanel Grid.Row="2" 
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top">
+                        <PasswordBox FontFamily="Helvetica"
+                                     FontWeight="Light"
+                                     Password=""
+                                     FontSize ="20"
+                                     Foreground="White"
+                                     Background="Transparent"
+                                     HorizontalAlignment="Center"
+                                     BorderThickness="0"
+                                     Width="230"
+                                     HorizontalContentAlignment="Left"
+                                     Opacity="0.5"
+                                     Height="25"
                          />
-                    <iconPacks:PackIconMaterial Kind="Account"
+                        <iconPacks:PackIconMaterial Kind="FormTextboxPassword"
                                  VerticalAlignment="Center"
                                  HorizontalAlignment="Center"
                                  Foreground="White"/>
-                </StackPanel>
+                    </StackPanel>
 
-                <Border Width="250"
-                    Height="2"
-                    Background="White"
-                    Opacity="0.6"/>
+                    <Border Width="250"
+                            Grid.Row="2"
+                            Height="2"
+                            Background="White"
+                            Opacity="0.6"/>
 
-                <StackPanel Orientation="Horizontal" Margin="0,25,0,0">
-                    <PasswordBox FontFamily="Helvetica"
-                         FontWeight="Light"
-                         Password="Password"
-                         FontSize ="20"
-                         Foreground="White"
-                         Background="Transparent"
-                         HorizontalAlignment="Center"
-                         BorderThickness="0"
-                         Width="235"
-                         HorizontalContentAlignment="Left"
-                         Opacity="0.5"
-                         Height="25"
-                         Margin="55,0,0,0"
-                         />
-                    <iconPacks:PackIconMaterial Kind="FormTextboxPassword"
-                                 VerticalAlignment="Center"
-                                 HorizontalAlignment="Center"
-                                 Foreground="White"/>
-                </StackPanel>
 
-                <Border Width="250"
-                    Height="2"
-                    Background="White"
-                    Opacity="0.6"/>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
-                    <Label Content="Ivalid login or password"
-                       FontSize="16"
-                       FontFamily="Helvetica"
-                       HorizontalAlignment="Center"
-                       Foreground="DarkRed"
-                       Visibility="Hidden"/>
-                </StackPanel>
-                
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,0">
-                    <Button Content="LOGIN" Width="100" Height="40" FontSize="20"/>
-                </StackPanel>
-
+                    <DockPanel Grid.Row="3"
+                               HorizontalAlignment="Center"
+                               Margin="0,10,0,0" >
+                        <Button Content="LOGIN" 
+                                Command="{Binding AuthCommand}"
+                                Style="{StaticResource single_button}"
+                                Visibility="{Binding LoginButton}"
+                                Width="100" 
+                                Height="40" 
+                                FontSize="20" 
+                        />
+                        <fa:ImageAwesome Icon="CircleOutlineNotch" 
+                                         Spin="True" 
+                                         SpinDuration="4" 
+                                         Foreground="White" 
+                                         Height="50"
+                                         Visibility="{Binding LoginIndicator}"
+                        />
+                    </DockPanel>
+                </Grid>
             </StackPanel>
-
-
         </Grid>
     </Grid>
 </Window>

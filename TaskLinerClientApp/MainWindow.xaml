@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TaskLinerClientApp"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
-        Title="Task Liner" Height="450" Width="800" 
+        Title="Task Liner" Height="600" Width="800" 
         AllowsTransparency="True"
         Background="Transparent"
         WindowStyle="None"
@@ -16,12 +16,12 @@
         WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
-        
+
         <!-- Шаблон для кнопки -->
         <SolidColorBrush x:Key="tb_mouse_over" Color="White" Opacity="0.3"/>
 
         <!-- Стиль шрифта текста -->
-        <Style x:Key="font_style" TargetType="TextBlock">
+        <Style x:Key="font_style_white" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Helvetica"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
@@ -29,11 +29,17 @@
             <Setter Property="FontSize" Value="20"/>
         </Style>
 
-        
+        <Style x:Key="font_style_black" TargetType="TextBlock" BasedOn="{StaticResource font_style_white}">
+            <Setter Property="Foreground" Value="DimGray"/>
+        </Style>
+        <Style x:Key="font_style_black_undertext" TargetType="TextBlock" BasedOn="{StaticResource font_style_black}">
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
         <!-- Стиль всплывающей подсказки -->
         <Style TargetType="ToolTip" x:Key="tooltip_style">
             <Setter Property="Placement" Value="Right"/>
-            <Setter Property="Height" Value="40"/>
+            <Setter Property="Height" Value="30"/>
             <Setter Property="Width" Value="100"/>
             <Setter Property="Margin" Value="20,0,0,0"/>
             <Setter Property="Background" Value="DimGray"/>
@@ -42,51 +48,30 @@
             <Setter Property="FontFamily" Value="Helvetica"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="PlacementRectangle" Value="70,0,0,0"/>
-            <Setter Property="HorizontalOffset" Value="15"/>
+            <Setter Property="HorizontalOffset" Value="10"/>
             <Setter Property="VerticalOffset" Value="6"/>
             <Setter Property="HasDropShadow" Value="True"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
 
         </Style>
 
-            <Style x:Key="tb_style" TargetType="{x:Type ToggleButton}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ToggleButton}">
-                        <Border x:Name="border"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                Background="{TemplateBinding Background}"
-                                SnapsToDevicePixels="True">
-                            
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background"
-                                        TargetName="border"
-                                        Value="{StaticResource tb_mouse_over}"/>
-                                <Setter Property="BorderBrush"
-                                        TargetName="border"
-                                        Value="{StaticResource tb_mouse_over}"/>
-                            </Trigger>
-
-                            <Trigger Property="IsChecked" Value="True">
-                                <Setter Property="Background"
-                                        TargetName="border"
-                                        Value="{StaticResource tb_mouse_over}"/>
-                                <Setter Property="BorderBrush"
-                                        TargetName="border"
-                                        Value="{StaticResource tb_mouse_over}"/>
-
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
+        <!-- Стиль панели времени в работе -->
+        <Style TargetType="GroupBox" x:Key="mainpanel_style">
+            <Setter Property="Foreground" Value="BlueViolet"/>
+            <Setter Property="FontFamily" Value="Helvetica"/>
+            <Setter Property="FontWeight" Value="Light"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="AntiqueWhite"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
         </Style>
 
+
+
     </Window.Resources>
-    
-    
+
+
     <Grid>
         <!-- Установка заднего фона -->
         <Border CornerRadius="10" Grid.RowSpan="3">
@@ -97,18 +82,18 @@
                 </LinearGradientBrush>
             </Border.Background>
         </Border>
-        
+
         <!-- Настройка окна -->
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
+                <RowDefinition Height="35"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
             <!-- Настройка заголовка окна -->
-            <StackPanel Grid.Row="0">
+            <StackPanel Grid.Row="0" MouseMove="Header_MouseMove">
                 <Grid HorizontalAlignment="Stretch">
-                    <Label Content="TaskLiner" 
+                    <Label Content="  TaskLiner" 
                            FontSize="16" 
                            FontFamily="Helvetica"
                            Opacity="0.7" Margin="0,0,0,-10">
@@ -123,74 +108,114 @@
                     <!-- Кнопки управления окном -->
                     <StackPanel HorizontalAlignment="Right"
                                 Orientation="Horizontal" 
-                                Margin="0,0,3,0">
-                        <Button Width="20" Height="20" Content="__" Margin="2,0,2,0" FontSize="10" Click="ButtonMinimize_Click"/>
-                        <Button Width="20" Height="20" Content="▢" Margin="2,0,2,0"  FontSize="15" Click="ButtonMinimize_Click"/>
-                        <Button Width="20" Height="20" Content="X" Margin="2,0,2,0"  FontSize="15" Click="ButtonClose_Click"/>
+                                Margin="0,5,3,0">
+                        <Button Width="20" Height="20" Content="__" Margin="2,0,2,0"  FontSize="10" Click="MinimizeButton_Click"/>
+                        <Button Width="20" Height="20" Content="▢"  Margin="2,0,2,0"  FontSize="15" Click="ButtonMinimize_Click"/>
+                        <Button Width="20" Height="20" Content="X"  Margin="2,0,2,0"  FontSize="15" Click="ButtonClose_Click"/>
                     </StackPanel>
                 </Grid>
             </StackPanel>
 
             <!-- Содержимое главного окна -->
-            <StackPanel Grid.Row="1">
-                <Grid HorizontalAlignment="Left">
+            <DockPanel Grid.Row="1" 
+                       HorizontalAlignment="Stretch" 
+                       VerticalAlignment="Stretch" 
+                       Height="Auto"
+                       >
+                <Grid DockPanel.Dock="Right" HorizontalAlignment="Stretch">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50"/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
 
                     <!-- Навигационный - бар главного окна -->
-                    <StackPanel Grid.Column="0" Opacity="1" Height="420" x:Name="nav_pnl">
-                        <StackPanel.Background>
+                    <DockPanel Grid.Column="0" 
+                                Opacity="1" 
+                                x:Name="nav_pnl" 
+                                Width="50" 
+                               >
+                        <DockPanel.Background>
                             <SolidColorBrush Color="Black" Opacity="0.4"/>
-                        </StackPanel.Background>
+                        </DockPanel.Background>
+
+
                         <!-- Сетка для заголовка навигационного бара -->
-                        <Grid Height="90">
-                            <TextBlock Grid.Row="1"
-                                       Grid.Column="0"
-                                       Margin="73,-20,0,0"
-                                       Text="MENU"
-                                       Foreground="White"
-                                       Background="Transparent"
-                                       HorizontalAlignment="Left"
-                                       VerticalAlignment="Center"
-                                       Style="{StaticResource font_style}">
-                                <TextBlock.Effect>
-                                    <DropShadowEffect BlurRadius="10"
-                                                      ShadowDepth="1"
-                                                      Direction="-90"
-                                                      Color="White"/>
-                                </TextBlock.Effect>
-                            </TextBlock>
+
+                        <StackPanel DockPanel.Dock="Top"
+                                    x:Name="profile_navbar"
+                                    Orientation="Horizontal" 
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    Width="230"
+                                    Height="50"
+                                    >
+                            <StackPanel.Background>
+                                <SolidColorBrush Color="Transparent" Opacity="0.8"/>
+                            </StackPanel.Background>
+
+                            <!-- Иконка профиля -->
+                            <Border CornerRadius="40" 
+                                        Width="50" 
+                                        Height="50"
+                                        Margin="10">
+                                <Border.Background>
+                                    <ImageBrush x:Name="user_icon" Stretch="Fill" ImageSource="/Resources/defaultusericon.png"/>
+                                </Border.Background>
+
+                                <Border BorderThickness="0.4" CornerRadius="40">
+                                    <Border.BorderBrush>
+                                        <SolidColorBrush Color="Black" Opacity="1"/>
+                                    </Border.BorderBrush>
+                                    <Border.Effect>
+                                        <DropShadowEffect BlurRadius="3" Opacity="1" ShadowDepth="0" Direction="0"/>
+                                    </Border.Effect>
+                                </Border>
+                            </Border>
+
+                            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                <TextBlock x:Name="username_navbar" Style="{StaticResource font_style_black}" Text="Username"/>
+                                <TextBlock x:Name="userprof_navbar" Style="{StaticResource font_style_black_undertext}" Text="Status"/>
+
+                            </StackPanel>
 
                             <ToggleButton x:Name="Tg_NavBar"
-                                          Grid.Column="0"
-                                          VerticalAlignment="Center"
-                                          HorizontalAlignment="Left"
-                                          Height="30"
-                                          Margin="10,-20,0,0"
-                                          Width="30"
-                                          BorderThickness="0"
-                                          Background="Transparent"
-                                          >
+                                        Height="30"
+                                        Margin="30,0,0,0"
+                                        Width="30"
+                                        BorderThickness="0"
+                                        Background="Transparent"
+                                        ClipToBounds="False">
                                 <iconPacks:PackIconMaterial Kind="Menu" 
-                                                            VerticalAlignment="Center" 
-                                                            HorizontalAlignment="Center" 
-                                                            Foreground="White"
-                                                            Background="Transparent"/>
-                                
+                                                        Foreground="White"
+                                                        Background="Transparent"
+                                                        VerticalAlignment="Center" 
+                                                        HorizontalAlignment="Center"/>
+
                                 <!-- Кнопка нажата, отжата -->
                                 <ToggleButton.Triggers>
                                     <EventTrigger RoutedEvent="ToggleButton.Unchecked">
                                         <BeginStoryboard>
                                             <Storyboard x:Name="HideStackPanel">
                                                 <DoubleAnimation
-                                                    Storyboard.TargetName="nav_pnl"
-                                                    Storyboard.TargetProperty="Width"
-                                                    BeginTime="0:0:0"
-                                                    From="230"
-                                                    To="50"
-                                                    Duration="0:0:0.2"/>
+                                                Storyboard.TargetName="nav_pnl"
+                                                Storyboard.TargetProperty="Width"
+                                                BeginTime="0:0:0"
+                                                From="230"
+                                                To="50"
+                                                Duration="0:0:0.2"/>
+
+                                                <DoubleAnimation Storyboard.TargetName="profile_navbar"
+                                                                 Storyboard.TargetProperty="Height"
+                                                                 From="80"
+                                                                 To="50"
+                                                                 Duration="0:0:0.2"/>
+                    
+                                
+
+                                                <ColorAnimation To="Transparent"
+                                                                Storyboard.TargetName="profile_navbar"
+                                                                Storyboard.TargetProperty="(DockPanel.Background).(SolidColorBrush.Color)"
+                                                                Duration="0:0:0.2"/>
                                             </Storyboard>
                                         </BeginStoryboard>
                                     </EventTrigger>
@@ -199,46 +224,64 @@
                                         <BeginStoryboard>
                                             <Storyboard x:Name="ShowStackPanel">
                                                 <DoubleAnimation 
-                                                    Storyboard.TargetName="nav_pnl"
-                                                    Storyboard.TargetProperty="Width"
-                                                    BeginTime="0:0:0"
-                                                    From="50"
-                                                    To="230"
-                                                    Duration="0:0:0.3"/>
+                                                Storyboard.TargetName="nav_pnl"
+                                                Storyboard.TargetProperty="Width"
+                                                BeginTime="0:0:0"
+                                                From="50"
+                                                To="230"
+                                                Duration="0:0:0.3"/>
+
+                                                <ColorAnimation To="#f2f3f4"
+                                                                Storyboard.TargetName="profile_navbar"
+                                                                Storyboard.TargetProperty="(DockPanel.Background).(SolidColorBrush.Color)"
+                                                                Duration="0:0:0.2"/>
+
+                                                <DoubleAnimation Storyboard.TargetName="profile_navbar"
+                                                                 Storyboard.TargetProperty="Height"
+                                                                 From="50"
+                                                                 To="80"
+                                                                 Duration="0:0:0.3"/>
+
                                             </Storyboard>
                                         </BeginStoryboard>
                                     </EventTrigger>
-                                    
+
                                 </ToggleButton.Triggers>
-                            
+
                             </ToggleButton>
-                        </Grid>
-                        
+                        </StackPanel>
+
+
+
                         <!-- Элементы меню -->
 
                         <ListView x:Name="MenuItems"
                                   Background="Transparent"
                                   BorderBrush="Transparent"
-                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                            
+                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                  DockPanel.Dock="Top"
+                                  VerticalAlignment="Stretch">
+
                             <!-- Кнопка Home -->
+
                             <ListViewItem HorizontalAlignment="Left"
-                                          Margin="5,0,0,15">
+                                          Margin="3,5,0,15" MouseEnter="ListViewItem_MouseEnter">
                                 <StackPanel Orientation="Horizontal"
-                                            Width="230">
+                                            Width="200">
 
                                     <iconPacks:PackIconMaterial Kind="Home" 
                                                             VerticalAlignment="Center" 
                                                             HorizontalAlignment="Center" 
                                                             Foreground="White"
                                                             Background="Transparent"
-                                                                Width="30"
-                                                                Height="30"/>
+                                                            Width="30"
+                                                            Height="30"/>
                                     <TextBlock Text="Home"
                                                Margin="25,0,0,0"
-                                               Style="{StaticResource font_style}"/>
+                                               Style="{StaticResource font_style_white}"/>
                                 </StackPanel>
-                                
+
                                 <!-- Всплывающие подсказки -->
                                 <ListViewItem.ToolTip>
                                     <ToolTip x:Name="tt_home" 
@@ -246,42 +289,125 @@
                                              Style="{StaticResource tooltip_style}"/>
 
                                 </ListViewItem.ToolTip>
-                                                      
+
                             </ListViewItem>
-                                          
-                            <!-- Кнопка Home -->
+
+                            <!-- Кнопка Projects -->
+
                             <ListViewItem HorizontalAlignment="Left"
-                                          Margin="5,0,0,15">
+                                          Margin="3,10,0,15" MouseEnter="ListViewItem_MouseEnter">
+                                <StackPanel Orientation="Horizontal"
+                                            Width="200">
+
+                                    <iconPacks:PackIconMaterial Kind="File" 
+                                                            VerticalAlignment="Center" 
+                                                            HorizontalAlignment="Center" 
+                                                            Foreground="White"
+                                                            Background="Transparent"
+                                                            Width="30"
+                                                            Height="30"/>
+                                    <TextBlock Text="Projects"
+                                               Margin="25,0,0,0"
+                                               Style="{StaticResource font_style_white}"/>
+                                </StackPanel>
+
+                                <!-- Всплывающие подсказки -->
+                                <ListViewItem.ToolTip>
+                                    <ToolTip x:Name="tt_projects" 
+                                             Content="Home"
+                                             Style="{StaticResource tooltip_style}"/>
+
+                                </ListViewItem.ToolTip>
+
+                            </ListViewItem>
+
+
+
+                        </ListView>
+
+                        <!-- Нижняя часть навигационной панели -->
+                        <ListView x:Name="MenuItemsBottom"
+                                  Background="Transparent"
+                                  BorderBrush="Transparent"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                  VerticalAlignment="Bottom">
+                            <!-- Кнопка Настроек -->
+                            <ListViewItem HorizontalAlignment="Left"
+                                          Margin="3,0,0,5">
                                 <StackPanel Orientation="Horizontal"
                                             Width="230">
 
-                                    <iconPacks:PackIconMaterial Kind="Home" 
+                                    <iconPacks:PackIconMaterial Kind="Cog" 
                                                             VerticalAlignment="Center" 
                                                             HorizontalAlignment="Center" 
                                                             Foreground="White"
                                                             Background="Transparent"
                                                                 Width="30"
                                                                 Height="30"/>
-                                    <TextBlock Text="Home"
+                                    <TextBlock Text="Settings"
                                                Margin="25,0,0,0"
-                                               Style="{StaticResource font_style}"/>
+                                               Style="{StaticResource font_style_white}"/>
                                 </StackPanel>
-                                
+
                                 <!-- Всплывающие подсказки -->
                                 <ListViewItem.ToolTip>
-                                    <ToolTip x:Name="tt_idk" 
-                                             Content="Home"
+                                    <ToolTip x:Name="tt_settings" 
+                                             Content="Settings"
                                              Style="{StaticResource tooltip_style}"/>
 
                                 </ListViewItem.ToolTip>
-                                                      
+
                             </ListViewItem>
-                            
+
+
                         </ListView>
-                        
-                    </StackPanel>
+
+                    </DockPanel>
+                    
+                    <DockPanel 
+                        Grid.Column="1" 
+                               Margin="10"
+                               HorizontalAlignment="Stretch"
+                               PreviewMouseLeftButtonDown="StackPanel_PreviewMouseLeftButtonDown">
+                        <Grid DockPanel.Dock="Right" 
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <GroupBox Header="Worked today"
+                                      Grid.Column="0" 
+                                      Grid.Row="0"
+                                      Style="{StaticResource mainpanel_style}">
+                                
+                            </GroupBox>
+
+                            <GroupBox Header="Idk later ill write"
+                                      Grid.Column="1" 
+                                      Grid.Row="0" 
+                                      Style="{StaticResource mainpanel_style}">
+
+                            </GroupBox>
+                            <GroupBox Header="Idk too"
+                                      Grid.Column="0" 
+                                      Grid.Row="1"
+                                      Grid.ColumnSpan="2" 
+                                      Style="{StaticResource mainpanel_style}">
+
+                            </GroupBox>
+                        </Grid>
+                    </DockPanel>
+
                 </Grid>
-            </StackPanel>
+                
+            </DockPanel>
         </Grid>
     </Grid>
 </Window>

@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TaskLiner.DB.Entity;
+using TaskLiner.DB.Entity.Views;
 
 namespace TaskLinerClientApp
 {
@@ -19,6 +21,7 @@ namespace TaskLinerClientApp
     /// </summary>
     public partial class AuthWindow : Window
     {
+
         public AuthWindow()
         {
             InitializeComponent();
@@ -38,5 +41,6 @@ namespace TaskLinerClientApp
         {
             Application.Current.Shutdown();
         }
+
     }
 }
