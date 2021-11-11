@@ -2,6 +2,7 @@
 using System.Windows;
 using TaskLinerClientApp.Auth;
 using TaskLinerClientApp.Models;
+using TaskLinerClientApp.Stores;
 using TaskLinerClientApp.ViewModels;
 
 namespace TaskLinerClientApp.Commands
@@ -9,10 +10,15 @@ namespace TaskLinerClientApp.Commands
     public class AuthCommand : CommandBase
     {
         public IAuthenticationService Service { get; }
-        public AuthViewModel AuthViewModel { get; set; } 
+        public AuthViewModel AuthViewModel { get; set; }
 
-        public AuthCommand(IAuthenticationService service, AuthViewModel authViewModel)
+        private readonly IRenavigator _navigator;
+
+        public AuthCommand(IAuthenticationService service,
+                           AuthViewModel authViewModel,
+                           IRenavigator navigateStore)
         {
+            _navigator = navigateStore;
             Service = service;
             AuthViewModel = authViewModel;
             AuthViewModel.PropertyChanged += OnViewModelPropertyChanged;
@@ -20,7 +26,8 @@ namespace TaskLinerClientApp.Commands
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(AuthViewModel.Username) || e.PropertyName == nameof(AuthViewModel.Password))
+            if (e.PropertyName is (nameof(AuthViewModel.Username)) or
+                (nameof(AuthViewModel.Password)))
             {
                 OnCanExecutedChanged();
             }
@@ -36,10 +43,13 @@ namespace TaskLinerClientApp.Commands
             {
                 if (x.Result == false)
                 {
+                    MessageBox.Show("Unsuccess");
                     AuthViewModel.OnUnsuccessfulLogin();
                 }
                 else
                 {
+                    MessageBox.Show("Success");
+                    _navigator.Renavigate();
                     AuthViewModel.OnSuccessLogin();
                 }
             });

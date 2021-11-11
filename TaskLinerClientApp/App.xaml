@@ -1,13 +1,33 @@
 ﻿<Application x:Class="TaskLinerClientApp.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:TaskLinerClientApp">
+             xmlns:local="clr-namespace:TaskLinerClientApp"
+             xmlns:viewmodels="clr-namespace:TaskLinerClientApp.ViewModels"
+             xmlns:views="clr-namespace:TaskLinerClientApp.Views">
     
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source= "SingleButtonTheme.xaml" />
+                <ResourceDictionary Source= "/Styles/singlebuttontheme.xaml" />
+                <ResourceDictionary Source= "/Styles/TextStyles.xaml" />
+                <ResourceDictionary Source= "/Styles/TooltipStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type viewmodels:AuthViewModel}">
+                <views:AuthView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:MainViewModel}">
+                <views:HomeView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
+                <views:HomeView/>
+            </DataTemplate>
         </ResourceDictionary>
+
+       
+        
+        
     </Application.Resources>
 </Application>

@@ -1,0 +1,106 @@
+﻿<UserControl x:Class="TaskLinerClientApp.Views.HomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TaskLinerClientApp.Views" xmlns:controls="clr-namespace:TaskLinerClientApp.Controls"
+             mc:Ignorable="d" 
+             d:MinHeight="450" d:MinWidth="800">
+
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="tb_mouse_over" Color="White" Opacity="0.3"/>
+
+        <!-- Стиль панели времени в работе -->
+        <Style TargetType="GroupBox" x:Key="mainpanel_style">
+            <Setter Property="Foreground" Value="BlueViolet"/>
+            <Setter Property="FontFamily" Value="Helvetica"/>
+            <Setter Property="FontWeight" Value="Light"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="AntiqueWhite"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <!-- Установка заднего фона -->
+        <Border CornerRadius="10" Grid.RowSpan="3">
+            <Border.Background>
+                <LinearGradientBrush>
+                    <GradientStop Color="#D8B5FF" Offset="0.0"/>
+                    <GradientStop Color="#1EAE98" Offset="1.0"/>
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+
+        <!-- Настройка окна -->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="29"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <controls:WindowHeader Grid.Row="0" DockPanel.Dock="Top"/>
+
+            <!-- Содержимое главного окна -->
+            <DockPanel Grid.Row="1" 
+                       HorizontalAlignment="Stretch" 
+                       VerticalAlignment="Stretch" 
+                       Height="Auto"
+                       >
+                <Grid DockPanel.Dock="Right" HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Навигационный - бар главного окна -->
+                    <controls:NavigationBar/>
+
+
+
+                    <DockPanel Grid.Column="1" 
+                               Margin="10"
+                               HorizontalAlignment="Stretch"
+                               >
+                        <Grid DockPanel.Dock="Right" 
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <GroupBox Header="Worked today"
+                                      Grid.Column="0" 
+                                      Grid.Row="0"
+                                      Style="{StaticResource mainpanel_style}">
+
+                            </GroupBox>
+
+                            <GroupBox Header="Idk later ill write"
+                                      Grid.Column="1" 
+                                      Grid.Row="0" 
+                                      Style="{StaticResource mainpanel_style}">
+
+                            </GroupBox>
+                            <GroupBox Header="Idk too"
+                                      Grid.Column="0" 
+                                      Grid.Row="1"
+                                      Grid.ColumnSpan="2" 
+                                      Style="{StaticResource mainpanel_style}">
+
+                            </GroupBox>
+                        </Grid>
+                    </DockPanel>
+
+                </Grid>
+            </DockPanel>
+        </Grid>
+    </Grid>
+</UserControl>

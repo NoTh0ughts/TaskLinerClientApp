@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="TaskLinerClientApp.Controls.WindowHeader"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TaskLinerClientApp.Controls"
+             mc:Ignorable="d" 
+             >
+    <Grid MouseMove="HeaderDrag_Move" VerticalAlignment="Top">
+        <StackPanel Grid.Row="0" >
+            <Grid HorizontalAlignment="Stretch">
+                <Label Content="  TaskLiner" 
+                       FontSize="16" 
+                       FontFamily="Helvetica"
+                       Opacity="0.7" Margin="0,0,0,0">
+                    <Label.Foreground>
+                        <SolidColorBrush Color="White" Opacity="0.7"/>
+                    </Label.Foreground>
+                    <Label.Background>
+                        <SolidColorBrush Color="Black" Opacity="0.5" />
+                    </Label.Background>
+                </Label>
+
+                <!-- Кнопки управления окном -->
+                <StackPanel HorizontalAlignment="Right"
+                                Orientation="Horizontal" 
+                                Margin="0,5,3,3">
+                    <Button Style="{StaticResource single_button}" Width="20" 
+                                Height="20" Content="__" Margin="2,0,2,0"  
+                                FontSize="10" Click="MinimizeButton_Click"/>
+                    <Button Style="{StaticResource single_button}" Width="20" 
+                                Height="20" Content="▢"  Margin="2,0,2,0"  
+                                FontSize="15" Click="MaximazeButton_Click"/>
+                    <Button Style="{StaticResource single_button}" Width="20" 
+                                Height="20" Content="X"  Margin="2,0,2,0"  
+                                FontSize="15" Click="CloseWindowButton_Click"/>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</UserControl>

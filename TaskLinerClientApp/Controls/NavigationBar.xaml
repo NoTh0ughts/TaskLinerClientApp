@@ -1,0 +1,241 @@
+﻿<UserControl x:Class="TaskLinerClientApp.Controls.NavigationBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TaskLinerClientApp.Controls" 
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks" 
+             xmlns:viewmodels="clr-namespace:TaskLinerClientApp.ViewModels"
+             xmlns:styles="clr-namespace:TaskLinerClientApp"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d" 
+             >
+
+    <Grid>
+        <DockPanel Grid.Row="0" 
+                   x:Name="nav_pnl" 
+                   Width="50" 
+                   >
+            <DockPanel.Background>
+                <SolidColorBrush Color="Black" Opacity="0.4"/>
+            </DockPanel.Background>
+
+
+            <!-- Сетка для заголовка навигационного бара -->
+            <StackPanel>
+                
+            </StackPanel>
+            <Grid DockPanel.Dock="Top"
+                        x:Name="profile_navbar"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Width="230"
+                        Height="50"
+                        >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.Background>
+                    <SolidColorBrush Color="Transparent" Opacity="0.8"/>
+                </Grid.Background>
+
+                <!-- Иконка профиля -->
+                
+                <Border CornerRadius="40" 
+                        Grid.Column="0"
+                        Width="50"
+                        Height="50"
+                        >
+                    <Border.Background>
+                        <ImageBrush x:Name="user_icon" Stretch="Fill" ImageSource="../Resources/defaultusericon.png"/>
+                    </Border.Background>
+
+                    <Border BorderThickness="0.4" CornerRadius="40">
+                        <Border.BorderBrush>
+                            <SolidColorBrush Color="Black" Opacity="1"/>
+                        </Border.BorderBrush>
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="3" Opacity="1" ShadowDepth="0" Direction="0"/>
+                        </Border.Effect>
+                    </Border>
+                </Border>
+
+                <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
+                    <TextBlock x:Name="username_navbar" Style="{StaticResource font_style_black}" Text="Username"/>
+                    <TextBlock x:Name="userprof_navbar" Style="{StaticResource font_style_black_undertext}" Text="Status"/>
+
+                </StackPanel>
+
+                <ToggleButton x:Name="Tg_NavBar"
+                              Grid.Column="2"
+                              Height="30"
+                              Margin="0,0,0,0"
+                              Width="30"
+                              BorderThickness="0"
+                              Background="Transparent"
+                              ClipToBounds="False"
+                              VerticalAlignment="Center" 
+                              HorizontalAlignment="Center">
+                    <iconPacks:PackIconMaterial Kind="Menu" Foreground="White" Background="Transparent"/>
+
+                    <!-- Кнопка нажата, отжата -->
+                    <ToggleButton.Triggers>
+                        <EventTrigger RoutedEvent="ToggleButton.Unchecked">
+                            <BeginStoryboard>
+                                <Storyboard x:Name="HideStackPanel">
+                                    <DoubleAnimation Storyboard.TargetName="nav_pnl"
+                                                 Storyboard.TargetProperty="Width"
+                                                 BeginTime="0:0:0"
+                                                 From="230" To="50"
+                                                 Duration="0:0:0.2"/>
+
+                                    <DoubleAnimation Storyboard.TargetName="profile_navbar"
+                                                 Storyboard.TargetProperty="Height"
+                                                 From="80" To="50"
+                                                 Duration="0:0:0.2"/>
+
+                                    <ColorAnimation To="Transparent"
+                                                Storyboard.TargetName="profile_navbar"
+                                                Storyboard.TargetProperty="(DockPanel.Background).(SolidColorBrush.Color)"
+                                                Duration="0:0:0.2"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+
+                        <EventTrigger RoutedEvent="ToggleButton.Checked">
+                            <BeginStoryboard>
+                                <Storyboard x:Name="ShowStackPanel">
+                                    <DoubleAnimation Storyboard.TargetName="nav_pnl"
+                                                 Storyboard.TargetProperty="Width"
+                                                 BeginTime="0:0:0"
+                                                 From="50" To="230"
+                                                 Duration="0:0:0.3"/>
+
+                                    <ColorAnimation To="#f2f3f4"
+                                                Storyboard.TargetName="profile_navbar"
+                                                Storyboard.TargetProperty="(DockPanel.Background).(SolidColorBrush.Color)"
+                                                Duration="0:0:0.2"/>
+
+                                    <DoubleAnimation Storyboard.TargetName="profile_navbar"
+                                                 Storyboard.TargetProperty="Height"
+                                                 From="50" To="80"
+                                                 Duration="0:0:0.3"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ToggleButton.Triggers>
+                </ToggleButton>
+            </Grid>
+            <!-- Элементы меню -->
+
+            <ListView Grid.Row="1" x:Name="MenuItems"
+                                  Background="Transparent"
+                                  BorderBrush="Transparent"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                  DockPanel.Dock="Top"
+                                  VerticalAlignment="Stretch">
+
+                <!-- Кнопка Home -->
+
+                <ListViewItem HorizontalAlignment="Left"
+                                          Margin="3,5,0,15">
+                    <StackPanel Orientation="Horizontal"
+                                            Width="200">
+
+                        <iconPacks:PackIconMaterial Kind="Home" 
+                                                            VerticalAlignment="Center" 
+                                                            HorizontalAlignment="Center" 
+                                                            Foreground="White"
+                                                            Background="Transparent"
+                                                            Width="30"
+                                                            Height="30"/>
+                        <TextBlock Text="Home"
+                                               Margin="25,0,0,0"
+                                               Style="{StaticResource font_style_white}"/>
+                    </StackPanel>
+
+                    <!-- Всплывающие подсказки -->
+                    <ListViewItem.ToolTip>
+                        <ToolTip x:Name="tt_home" Content="Home" Style="{StaticResource tooltip_style}"/>
+                    </ListViewItem.ToolTip>
+
+                </ListViewItem>
+
+                <!-- Кнопка Projects -->
+
+                <ListViewItem HorizontalAlignment="Left"
+                                          Margin="3,10,0,15">
+                    <StackPanel Orientation="Horizontal"
+                                            Width="200">
+
+                        <iconPacks:PackIconMaterial Kind="File" 
+                                                            VerticalAlignment="Center" 
+                                                            HorizontalAlignment="Center" 
+                                                            Foreground="White"
+                                                            Background="Transparent"
+                                                            Width="30"
+                                                            Height="30"/>
+                        <TextBlock Text="Projects"
+                                               Margin="25,0,0,0"
+                                               Style="{StaticResource font_style_white}"/>
+                    </StackPanel>
+
+                    <!-- Всплывающие подсказки -->
+                    <ListViewItem.ToolTip>
+                        <ToolTip x:Name="tt_projects" 
+                                             Content="Home"
+                                             Style="{StaticResource tooltip_style}"/>
+
+                    </ListViewItem.ToolTip>
+
+                </ListViewItem>
+
+
+
+            </ListView>
+
+            <!-- Нижняя часть навигационной панели -->
+            <ListView x:Name="MenuItemsBottom"
+                                  Background="Transparent"
+                                  BorderBrush="Transparent"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                  VerticalAlignment="Bottom">
+                <!-- Кнопка Настроек -->
+                <ListViewItem HorizontalAlignment="Left"
+                                          Margin="3,0,0,5">
+                    <StackPanel Orientation="Horizontal"
+                                            Width="230">
+
+                        <iconPacks:PackIconMaterial Kind="Cog" 
+                                                            VerticalAlignment="Center" 
+                                                            HorizontalAlignment="Center" 
+                                                            Foreground="White"
+                                                            Background="Transparent"
+                                                                Width="30"
+                                                                Height="30"/>
+                        <TextBlock Text="Settings"
+                                               Margin="25,0,0,0"
+                                               Style="{StaticResource font_style_white}"/>
+                    </StackPanel>
+
+                    <!-- Всплывающие подсказки -->
+                    <ListViewItem.ToolTip>
+                        <ToolTip x:Name="tt_settings" 
+                                             Content="Settings"
+                                             Style="{StaticResource tooltip_style}"/>
+
+                    </ListViewItem.ToolTip>
+
+                </ListViewItem>
+
+
+            </ListView>
+        </DockPanel>
+    </Grid>
+</UserControl>

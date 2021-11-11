@@ -11,14 +11,10 @@ namespace TaskLinerClientApp.Auth
     public interface IAuthenticator
     {
         User CurrentUser { get; }
-
         bool IsLoggedIn { get; }
-
-
+        IAuthenticationService AuthService { get; }
         Task<RegistrationResult> Register(UserRegistrationModel registrationModel);
-
         Task<bool> Login(UserIdentityModel userIdentity);
-
         void Logout();
     }
 }

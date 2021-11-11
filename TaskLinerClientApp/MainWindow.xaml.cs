@@ -8,9 +8,10 @@ namespace TaskLinerClientApp
 {
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(object dataContext)
         {
             InitializeComponent();
+            DataContext = dataContext;
         }
 
         private void WindowDrag(object sender, MouseButtonEventArgs e)
@@ -38,15 +39,7 @@ namespace TaskLinerClientApp
             Application.Current.Shutdown();
         }
 
-        private void ListViewItem_MouseEnter(object sender, MouseEventArgs e)
-        {
-            tt_home.Visibility = Tg_NavBar.IsChecked == true ? Visibility.Collapsed : Visibility.Visible;
-        }
-
-        private void StackPanel_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            Tg_NavBar.IsChecked = false;
-        }
+       
 
         private void Header_MouseMove(object sender, MouseEventArgs e)
         {

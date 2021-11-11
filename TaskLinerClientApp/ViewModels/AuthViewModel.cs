@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Input;
 using TaskLinerClientApp.Auth;
 using TaskLinerClientApp.Commands;
-using TaskLinerClientApp.Models;
+using TaskLinerClientApp.Stores;
 
 namespace TaskLinerClientApp.ViewModels
 {
@@ -78,9 +78,9 @@ namespace TaskLinerClientApp.ViewModels
         public ICommand RegisterCommand { get; }
 
 
-        public AuthViewModel(IAuthenticationService authenticationService)
+        public AuthViewModel(IAuthenticationService authenticationService, IRenavigator navigateStore)
         {
-            AuthCommand = new AuthCommand(authenticationService, authViewModel: this);
+            AuthCommand = new AuthCommand(authenticationService, authViewModel: this, navigateStore);
         }
 
         public void OnUnsuccessfulLogin()
