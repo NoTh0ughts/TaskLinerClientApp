@@ -6,12 +6,14 @@
              xmlns:local="clr-namespace:TaskLinerClientApp.Controls" 
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks" 
              xmlns:viewmodels="clr-namespace:TaskLinerClientApp.ViewModels"
+             xmlns:navvm="clr-namespace:TaskLinerClientApp.ViewModels.Factory"
              xmlns:styles="clr-namespace:TaskLinerClientApp"
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d" 
              >
 
+    
     <Grid>
         <DockPanel Grid.Row="0" 
                    x:Name="nav_pnl" 
@@ -23,16 +25,13 @@
 
 
             <!-- Сетка для заголовка навигационного бара -->
-            <StackPanel>
-                
-            </StackPanel>
             <Grid DockPanel.Dock="Top"
-                        x:Name="profile_navbar"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Top"
-                        Width="230"
-                        Height="50"
-                        >
+                  x:Name="profile_navbar"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Top"
+                  Width="230"
+                  Height="50">
+                
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="60"/>
                     <ColumnDefinition/>
@@ -44,43 +43,37 @@
                 </Grid.Background>
 
                 <!-- Иконка профиля -->
-                
-                <Border CornerRadius="40" 
-                        Grid.Column="0"
-                        Width="50"
-                        Height="50"
-                        >
-                    <Border.Background>
-                        <ImageBrush x:Name="user_icon" Stretch="Fill" ImageSource="../Resources/defaultusericon.png"/>
-                    </Border.Background>
 
-                    <Border BorderThickness="0.4" CornerRadius="40">
-                        <Border.BorderBrush>
-                            <SolidColorBrush Color="Black" Opacity="1"/>
-                        </Border.BorderBrush>
-                        <Border.Effect>
-                            <DropShadowEffect BlurRadius="3" Opacity="1" ShadowDepth="0" Direction="0"/>
-                        </Border.Effect>
-                    </Border>
-                </Border>
+                <Ellipse Grid.Column="0" 
+                         Width="50"
+                         Height="50"
+                         VerticalAlignment="Center">
+                    <Ellipse.Fill>
+                        <ImageBrush x:Name="user_icon" Stretch="Fill" ImageSource="../Resources/defaultusericon.png"/>
+                    </Ellipse.Fill>
+                </Ellipse>
 
                 <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
-                    <TextBlock x:Name="username_navbar" Style="{StaticResource font_style_black}" Text="Username"/>
-                    <TextBlock x:Name="userprof_navbar" Style="{StaticResource font_style_black_undertext}" Text="Status"/>
-
+                    <TextBlock x:Name="username_navbar" 
+                               Style="{StaticResource font_style_black}" 
+                               Text="{Binding CurrentUser.Nickname}"/>
+                    <TextBlock x:Name="userprof_navbar" 
+                               Style="{StaticResource font_style_black_undertext}" 
+                               Text="{Binding CurrentUser.Proffesion}"/>
                 </StackPanel>
 
                 <ToggleButton x:Name="Tg_NavBar"
                               Grid.Column="2"
                               Height="30"
-                              Margin="0,0,0,0"
                               Width="30"
                               BorderThickness="0"
                               Background="Transparent"
-                              ClipToBounds="False"
                               VerticalAlignment="Center" 
                               HorizontalAlignment="Center">
-                    <iconPacks:PackIconMaterial Kind="Menu" Foreground="White" Background="Transparent"/>
+                    
+                    <iconPacks:PackIconMaterial Kind="Menu" 
+                                                Foreground="White" 
+                                                Background="Transparent"/>
 
                     <!-- Кнопка нажата, отжата -->
                     <ToggleButton.Triggers>
@@ -121,9 +114,9 @@
                                                 Duration="0:0:0.2"/>
 
                                     <DoubleAnimation Storyboard.TargetName="profile_navbar"
-                                                 Storyboard.TargetProperty="Height"
-                                                 From="50" To="80"
-                                                 Duration="0:0:0.3"/>
+                                                    Storyboard.TargetProperty="Height"
+                                                    From="50" To="80"
+                                                    Duration="0:0:0.3"/>
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
@@ -132,32 +125,39 @@
             </Grid>
             <!-- Элементы меню -->
 
-            <ListView Grid.Row="1" x:Name="MenuItems"
-                                  Background="Transparent"
-                                  BorderBrush="Transparent"
-                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                  DockPanel.Dock="Top"
-                                  VerticalAlignment="Stretch">
+            <ListView Grid.Row="1" 
+                      x:Name="MenuItems"
+                      Background="Transparent"
+                      BorderBrush="Transparent"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                      DockPanel.Dock="Top"
+                      VerticalAlignment="Stretch">
 
                 <!-- Кнопка Home -->
 
                 <ListViewItem HorizontalAlignment="Left"
-                                          Margin="3,5,0,15">
-                    <StackPanel Orientation="Horizontal"
-                                            Width="200">
+                              Margin="3,5,0,15">
+                    <Button Background="Transparent"
+                            Command="{Binding UpdateCurrentTabViewModel}"
+                            CommandParameter="{x:Static navvm:TabViewModelType.Home}"
+                            BorderThickness="0">
+                        <StackPanel Orientation="Horizontal"
+                                    Width="200">
 
-                        <iconPacks:PackIconMaterial Kind="Home" 
-                                                            VerticalAlignment="Center" 
-                                                            HorizontalAlignment="Center" 
-                                                            Foreground="White"
-                                                            Background="Transparent"
-                                                            Width="30"
-                                                            Height="30"/>
-                        <TextBlock Text="Home"
-                                               Margin="25,0,0,0"
-                                               Style="{StaticResource font_style_white}"/>
-                    </StackPanel>
+                            <iconPacks:PackIconMaterial Kind="Home" 
+                                                        VerticalAlignment="Center" 
+                                                        HorizontalAlignment="Center" 
+                                                        Foreground="White"
+                                                        Background="Transparent"
+                                                        Width="30"
+                                                        Height="30"/>
+                            <TextBlock Text="Home"
+                                       Margin="25,0,0,0"
+                                       Style="{StaticResource font_style_white}"/>
+                        </StackPanel>
+                    </Button>
+                    
 
                     <!-- Всплывающие подсказки -->
                     <ListViewItem.ToolTip>
@@ -169,72 +169,110 @@
                 <!-- Кнопка Projects -->
 
                 <ListViewItem HorizontalAlignment="Left"
-                                          Margin="3,10,0,15">
-                    <StackPanel Orientation="Horizontal"
-                                            Width="200">
+                              Margin="3,10,0,15">
+                    <Button Background="Transparent"
+                            Command="{Binding UpdateCurrentTabViewModel}"
+                            CommandParameter="{x:Static navvm:TabViewModelType.Projects}"
+                            BorderThickness="0">
+                        <StackPanel Orientation="Horizontal"
+                                    Width="200">
 
-                        <iconPacks:PackIconMaterial Kind="File" 
-                                                            VerticalAlignment="Center" 
-                                                            HorizontalAlignment="Center" 
-                                                            Foreground="White"
-                                                            Background="Transparent"
-                                                            Width="30"
-                                                            Height="30"/>
-                        <TextBlock Text="Projects"
-                                               Margin="25,0,0,0"
-                                               Style="{StaticResource font_style_white}"/>
-                    </StackPanel>
+                            <iconPacks:PackIconMaterial Kind="File" 
+                                                        VerticalAlignment="Center" 
+                                                        HorizontalAlignment="Center" 
+                                                        Foreground="White"
+                                                        Background="Transparent"
+                                                        Width="30"
+                                                        Height="30"/>
+                            <TextBlock Text="Projects"
+                                       Margin="25,0,0,0"
+                                       Style="{StaticResource font_style_white}"/>
+                        </StackPanel>
+                    </Button>
 
                     <!-- Всплывающие подсказки -->
                     <ListViewItem.ToolTip>
                         <ToolTip x:Name="tt_projects" 
-                                             Content="Home"
-                                             Style="{StaticResource tooltip_style}"/>
+                                 Content="Home"
+                                 Style="{StaticResource tooltip_style}"/>
 
                     </ListViewItem.ToolTip>
 
                 </ListViewItem>
 
+
+                <!-- Кнопка Companies -->
+
+                <ListViewItem HorizontalAlignment="Left"
+                              Margin="3,5,0,15">
+                    <Button Background="Transparent"
+                            Command="{Binding UpdateCurrentTabViewModel}"
+                            CommandParameter="{x:Static navvm:TabViewModelType.Companies}"
+                            BorderThickness="0">
+                        <StackPanel Orientation="Horizontal"
+                                    Width="200">
+
+                            <iconPacks:PackIconMaterial Kind="Ubisoft" 
+                                                        VerticalAlignment="Center" 
+                                                        HorizontalAlignment="Center" 
+                                                        Foreground="White"
+                                                        Background="Transparent"
+                                                        Width="30"
+                                                        Height="30"/>
+                            <TextBlock Text="Companies"
+                                       Margin="25,0,0,0"
+                                       Style="{StaticResource font_style_white}"/>
+                        </StackPanel>
+                    </Button>
+
+
+                    <!-- Всплывающие подсказки -->
+                    <ListViewItem.ToolTip>
+                        <ToolTip x:Name="tt_compamies" Content="Companies" Style="{StaticResource tooltip_style}"/>
+                    </ListViewItem.ToolTip>
+
+                </ListViewItem>
 
 
             </ListView>
 
             <!-- Нижняя часть навигационной панели -->
             <ListView x:Name="MenuItemsBottom"
-                                  Background="Transparent"
-                                  BorderBrush="Transparent"
-                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                  VerticalAlignment="Bottom">
+                      Background="Transparent"
+                      BorderBrush="Transparent"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                      VerticalAlignment="Bottom">
                 <!-- Кнопка Настроек -->
                 <ListViewItem HorizontalAlignment="Left"
-                                          Margin="3,0,0,5">
-                    <StackPanel Orientation="Horizontal"
-                                            Width="230">
+                              Margin="3,0,0,5">
+                    <Button Background="Transparent"
+                            BorderThickness="0">
+                        <StackPanel Orientation="Horizontal"
+                                Width="230">
 
-                        <iconPacks:PackIconMaterial Kind="Cog" 
-                                                            VerticalAlignment="Center" 
-                                                            HorizontalAlignment="Center" 
-                                                            Foreground="White"
-                                                            Background="Transparent"
-                                                                Width="30"
-                                                                Height="30"/>
-                        <TextBlock Text="Settings"
-                                               Margin="25,0,0,0"
-                                               Style="{StaticResource font_style_white}"/>
-                    </StackPanel>
+                            <iconPacks:PackIconMaterial Kind="Cog" 
+                                                    VerticalAlignment="Center" 
+                                                    HorizontalAlignment="Center" 
+                                                    Foreground="White"
+                                                    Background="Transparent"
+                                                    Width="30"
+                                                    Height="30"/>
+                            <TextBlock Text="Settings"
+                                   Margin="25,0,0,0"
+                                   Style="{StaticResource font_style_white}"/>
+                        </StackPanel>
 
+                    </Button>
+                    
                     <!-- Всплывающие подсказки -->
                     <ListViewItem.ToolTip>
                         <ToolTip x:Name="tt_settings" 
-                                             Content="Settings"
-                                             Style="{StaticResource tooltip_style}"/>
+                                 Content="Settings"
+                                 Style="{StaticResource tooltip_style}"/>
 
                     </ListViewItem.ToolTip>
-
                 </ListViewItem>
-
-
             </ListView>
         </DockPanel>
     </Grid>

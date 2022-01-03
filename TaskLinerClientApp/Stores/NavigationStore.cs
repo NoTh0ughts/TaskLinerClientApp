@@ -10,7 +10,7 @@ namespace TaskLinerClientApp.Stores
     {
         private ViewModelBase _currentViewModel;
          
-        public ViewModelBase CurrentViewModel
+        public ViewModelBase CurrentTabViewModel
         {
             get => _currentViewModel;
             set

@@ -9,5 +9,6 @@ namespace TaskLinerClientApp.ViewModels.Factory
     public interface IViewModelFactory
     {
         ViewModelBase CreateViewModel(ViewModelType viewType);
+        TabViewModelBase CreateTabViewModel(TabViewModelType tabViewType);
     }
 }

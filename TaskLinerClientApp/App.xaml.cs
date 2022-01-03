@@ -8,13 +8,14 @@ namespace TaskLinerClientApp
 {
     public partial class App : Application
     {
-        private ServiceProvider serviceProvider;
+        private readonly ServiceProvider serviceProvider;
 
         public App()
         {
-            ServiceCollection services = new ServiceCollection();
+            ServiceCollection services = new();
             ConfigureServices(services);
             serviceProvider = services.BuildServiceProvider();
+            TimeService.Initialize();
         }
 
         protected override void OnStartup(StartupEventArgs e)
@@ -27,9 +28,6 @@ namespace TaskLinerClientApp
 
         private void ConfigureServices(ServiceCollection services)
         {
-
-            services.AddSingleton<IAuthenticationService, TokenAuthenticationService>();
-            services.AddSingleton<IAuthenticator, Authenticator>();
             services.AddSingleton<MainWindow>();
 
             services.AddServices()

@@ -1,0 +1,105 @@
+﻿<UserControl x:Class="TaskLinerClientApp.Views.Tabs.TabCompanyView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TaskLinerClientApp.Views.Tabs" xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="Transparent">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Vertical" Grid.RowSpan="1" Grid.Row="0" Grid.Column="0" Margin="10" VerticalAlignment="Top">
+            <TextBlock Style="{StaticResource font_style_black}" Text="Company name"/>
+            <TextBlock Style="{StaticResource font_style_black_undertext}" Text="Owner"/>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Row="1" Margin="10" Grid.RowSpan="2">
+            <TextBlock Style="{StaticResource font_style_black}" Text="Projects"/>
+            <ListView Background="Transparent" BorderThickness="0" Margin="10">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical"></StackPanel>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment"  Value="Stretch"></Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListViewItem>
+                    <Border  BorderThickness="1" BorderBrush="Black" CornerRadius="5" Padding="5">
+                        <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Style="{StaticResource font_style_black}" Text="Project title" HorizontalAlignment="Center"/>
+                            <TextBlock Grid.Column="1" Style="{StaticResource font_style_black}" Text="Scope" HorizontalAlignment="Center"/>
+                            <TextBlock Grid.Column="2" Style="{StaticResource font_style_black}" Text="Description" HorizontalAlignment="Center"/>
+                        </Grid>
+                    </Border>
+                </ListViewItem>
+            </ListView>
+            
+            
+        </StackPanel>
+
+        <Border Grid.Column="1" CornerRadius="10" BorderBrush="White" BorderThickness="1"  Margin="10" Grid.RowSpan="3">
+            <DockPanel>
+                <Grid DockPanel.Dock="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" HorizontalAlignment="Center" 
+                       Margin="5"
+                       Style="{StaticResource font_style_black}" 
+                       Text="Workers"/>
+
+                    <ListView Grid.Row="1" Background="Transparent" BorderThickness="0">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical"></StackPanel>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment"  Value="Stretch"></Setter>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+
+                        <ListViewItem>
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterial Kind="Circle"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Foreground="Black" Margin="3" Height="10"/>
+                                <TextBlock Style="{StaticResource font_style_black_undertext}" Text="Worker name"/>
+                            </StackPanel>
+                        </ListViewItem>
+                    </ListView>
+                    <Button Grid.Row="2" Style="{StaticResource single_button}" Margin="10" 
+                    Height="30" 
+                    Content="Add new worker"/>
+                </Grid>
+            </DockPanel>
+        </Border>
+        
+
+    </Grid>
+</UserControl>

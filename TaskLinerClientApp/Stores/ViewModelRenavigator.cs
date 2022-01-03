@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TaskLinerClientApp.ViewModels;
+using TaskLinerClientApp.ViewModels.Factory;
 
 namespace TaskLinerClientApp.Stores
 {
@@ -20,7 +21,7 @@ namespace TaskLinerClientApp.Stores
 
         public void Renavigate()
         {
-            _navigator.CurrentViewModel = _createViewModel();
+            _navigator.CurrentTabViewModel = _createViewModel();
         }
     }
 }

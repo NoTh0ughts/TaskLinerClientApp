@@ -14,6 +14,9 @@
     <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
     <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="4.11.0" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.11" />
+    <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
+    <PackageReference Include="RestClient.Net" Version="5.0.7" />
+    <PackageReference Include="RestClient.Net.DependencyInjection" Version="5.0.7" />
   </ItemGroup>
 
   <ItemGroup>

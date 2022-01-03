@@ -39,8 +39,6 @@ namespace TaskLinerClientApp
             Application.Current.Shutdown();
         }
 
-       
-
         private void Header_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed) DragMove();

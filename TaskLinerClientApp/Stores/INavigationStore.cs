@@ -8,7 +8,7 @@ namespace TaskLinerClientApp.Stores
 {
     public interface INavigationStore
     {
-        public ViewModelBase CurrentViewModel { get; set; }
+        public ViewModelBase CurrentTabViewModel { get; set; }
 
         public event Action CurrentViewModelChanged;
     }

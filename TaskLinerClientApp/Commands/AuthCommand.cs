@@ -9,17 +9,17 @@ namespace TaskLinerClientApp.Commands
 {
     public class AuthCommand : CommandBase
     {
-        public IAuthenticationService Service { get; }
+        public IAuthenticator Authenticator { get; }
         public AuthViewModel AuthViewModel { get; set; }
 
         private readonly IRenavigator _navigator;
 
-        public AuthCommand(IAuthenticationService service,
+        public AuthCommand(IAuthenticator service,
                            AuthViewModel authViewModel,
                            IRenavigator navigateStore)
         {
             _navigator = navigateStore;
-            Service = service;
+            Authenticator = service;
             AuthViewModel = authViewModel;
             AuthViewModel.PropertyChanged += OnViewModelPropertyChanged;
         }
@@ -35,13 +35,13 @@ namespace TaskLinerClientApp.Commands
 
         public override void Execute(object parameter)
         {
-            _ = Service.Login(new UserIdentityModel()
+            _ = Authenticator.Login(new UserIdentityModel()
             {
                 Username = AuthViewModel.Username,
                 Password = "1234"
             }).ContinueWith(x =>
             {
-                if (x.Result == false)
+                if (x.Result == null)
                 {
                     MessageBox.Show("Unsuccess");
                     AuthViewModel.OnUnsuccessfulLogin();

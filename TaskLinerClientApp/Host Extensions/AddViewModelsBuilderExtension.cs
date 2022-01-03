@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using TaskLinerClientApp.Auth;
 using TaskLinerClientApp.Stores;
 using TaskLinerClientApp.ViewModels;
 using TaskLinerClientApp.ViewModels.Factory;
+using TaskLinerClientApp.ViewModels.Tabs;
+using TaskLinerClientApp.ViewModels.Widgets;
 
 namespace TaskLinerClientApp.Host_Extensions
 {
@@ -18,17 +15,29 @@ namespace TaskLinerClientApp.Host_Extensions
         {
             services.AddTransient(CreateAuthViewModel)
                     .AddTransient(CreateHomeViewModel)
-                    .AddTransient<MainViewModel>();
+                    .AddTransient<MainViewModel>()
+                    .AddTransient<HomeTabViewModel>()
+                    .AddTransient<CompaniesTabViewModel>()
+                    .AddTransient<ProjectsTabViewModel>()
+                    .AddTransient<MakeCompanyViewModel>()
+                    .AddTransient<TimerHomeWidgetViewModel>();
 
 
-
-            services.AddSingleton<CreateViewModel<AuthViewModel>>
+            _ = services.AddSingleton<CreateViewModel<AuthViewModel>>
                         (services => () => services.GetRequiredService<AuthViewModel>())
                     .AddSingleton<CreateViewModel<HomeViewModel>>
-                        (services => () => services.GetRequiredService<HomeViewModel>());
+                        (services => () => services.GetRequiredService<HomeViewModel>())
+                    .AddSingleton<CreateTabViewModel<HomeTabViewModel>>
+                        (services => () => services.GetRequiredService<HomeTabViewModel>())
+                    .AddSingleton<CreateTabViewModel<ProjectsTabViewModel>>
+                        (services => () => services.GetRequiredService<ProjectsTabViewModel>())
+                    .AddSingleton<CreateTabViewModel<CompaniesTabViewModel>>
+                        (services => () => services.GetRequiredService<CompaniesTabViewModel>())
+                    .AddSingleton<CreateTabViewModel<MakeCompanyViewModel>>
+                        (services => () => services.GetRequiredService<MakeCompanyViewModel>());
+
 
             services.AddSingleton<IViewModelFactory, ViewModelFactory>();
-
             services.AddSingleton<ViewModelRenavigator<AuthViewModel>>()
                     .AddSingleton<ViewModelRenavigator<HomeViewModel>>();
 
@@ -38,14 +47,17 @@ namespace TaskLinerClientApp.Host_Extensions
         private static AuthViewModel CreateAuthViewModel(IServiceProvider services)
         {
             return new AuthViewModel(
-                services.GetRequiredService<IAuthenticationService>(),
-                services.GetRequiredService<ViewModelRenavigator<HomeViewModel>>()
-                );
+                services.GetRequiredService<IAuthenticator>(),
+                services.GetRequiredService<ViewModelRenavigator<HomeViewModel>>());
         }
 
         private static HomeViewModel CreateHomeViewModel(IServiceProvider services)
         {
-            return new HomeViewModel();
+            return new HomeViewModel(
+                services.GetRequiredService<IAuthenticationService>(),
+                services.GetRequiredService<IViewModelFactory>(),
+                services.GetRequiredService<ITabNavigationStore>(),
+                services.GetRequiredService<IAuthenticator>());
         }
     }
 }

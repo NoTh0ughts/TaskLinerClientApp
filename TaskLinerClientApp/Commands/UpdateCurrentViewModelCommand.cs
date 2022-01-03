@@ -27,7 +27,7 @@ namespace TaskLinerClientApp.Commands
         {
             if (parameter is ViewModelType viewType)
             {
-                _navigator.CurrentViewModel = _viewModelFactory.CreateViewModel(viewType);
+                _navigator.CurrentTabViewModel = _viewModelFactory.CreateViewModel(viewType);
             }
         }
     }

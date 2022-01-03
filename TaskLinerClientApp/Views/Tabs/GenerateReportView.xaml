@@ -1,0 +1,91 @@
+﻿<UserControl x:Class="TaskLinerClientApp.Views.Tabs.GenerateReportView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TaskLinerClientApp.Views.Tabs"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <Grid Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="30" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <StackPanel>
+            <TextBlock Style="{StaticResource font_style_black}" Text="Generating report" Margin="10"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <TextBlock Margin="10 0 10 0" Style="{StaticResource font_style_black_undertext}" Text="File format"/>
+            <ComboBox MinWidth="200" VerticalAlignment="Center">
+                <ComboBoxItem>CSV</ComboBoxItem>
+                <ComboBoxItem>EXEL</ComboBoxItem>
+            </ComboBox>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <TextBlock Margin="10 0 10 0" Style="{StaticResource font_style_black_undertext}" Text="Select projects"/>
+            <CheckBox VerticalAlignment="Center" Margin="10"></CheckBox>
+            <ComboBox MinWidth="200" VerticalAlignment="Center" IsEnabled="False">
+                <ComboBoxItem>CSV</ComboBoxItem>
+                <ComboBoxItem>EXEL</ComboBoxItem>
+            </ComboBox>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal">
+            <TextBlock Margin="10 0 10 0" Style="{StaticResource font_style_black_undertext}" Text="User identity"/>
+            <ComboBox MinWidth="100" VerticalAlignment="Center">
+                <ComboBoxItem>Id</ComboBoxItem>
+                <ComboBoxItem>Name</ComboBoxItem>
+            </ComboBox>
+        </StackPanel>
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal">
+            <TextBlock Margin="10 0 10 0" Style="{StaticResource font_style_black_undertext}" Text="Time format"/>
+            <ComboBox MinWidth="100" VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="5" Orientation="Horizontal">
+            <TextBlock Margin="10 0 10 0" Style="{StaticResource font_style_black_undertext}" Text="Select columns"/>
+            <ComboBox MinWidth="200" VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="6" Orientation="Horizontal">
+            <TextBlock Margin="10 0 10 0" Style="{StaticResource font_style_black_undertext}" Text="Include salary"/>
+            <CheckBox VerticalAlignment="Center" Margin="10"></CheckBox>
+            <TextBox MinWidth="100" VerticalAlignment="Center" IsEnabled="False"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="7" Orientation="Horizontal" IsEnabled="False">
+            <TextBlock Margin="10 0 10 0" Style="{StaticResource font_style_black_undertext}" Text="Currency"/>
+            <ComboBox MinWidth="200" VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="8" Orientation="Horizontal">
+            <TextBlock Margin="10 0 10 0" Style="{StaticResource font_style_black_undertext}" Text="Select workers"/>
+            <CheckBox VerticalAlignment="Center" Margin="10"></CheckBox>
+            <ComboBox MinWidth="100" VerticalAlignment="Center" IsEnabled="False"/>
+
+        </StackPanel>
+
+        <Button Grid.Row="9" 
+                Width="100"
+                Height="30"
+                Content="Generate" 
+                Margin="30"
+                Style="{StaticResource single_button}" 
+                VerticalAlignment="Bottom" 
+                HorizontalAlignment="Center"/>
+
+    </Grid>
+</UserControl>

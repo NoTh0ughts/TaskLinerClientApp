@@ -78,7 +78,7 @@ namespace TaskLinerClientApp.ViewModels
         public ICommand RegisterCommand { get; }
 
 
-        public AuthViewModel(IAuthenticationService authenticationService, IRenavigator navigateStore)
+        public AuthViewModel(IAuthenticator authenticationService, IRenavigator navigateStore)
         {
             AuthCommand = new AuthCommand(authenticationService, authViewModel: this, navigateStore);
         }
@@ -87,19 +87,15 @@ namespace TaskLinerClientApp.ViewModels
         {
             OnLoginProcessEnd();
             WrongIdentityText = Visibility.Visible;
-            //MessageBox.Show("Unsuccess");
-
         }
 
         public void OnSuccessLogin()
         {
             OnLoginProcessEnd();
-            //MessageBox.Show("Success");
         }
 
         public void OnLoginProcess()
         {
-            //MessageBox.Show("Login process");
             LoginButton = Visibility.Collapsed;
             LoginIndicator = Visibility.Visible;
 
@@ -110,6 +106,5 @@ namespace TaskLinerClientApp.ViewModels
             LoginButton = Visibility.Visible;
             LoginIndicator = Visibility.Collapsed;
         }
-        
     }
 }

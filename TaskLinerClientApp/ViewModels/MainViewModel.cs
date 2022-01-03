@@ -16,7 +16,7 @@ namespace TaskLinerClientApp.ViewModels
         private readonly IViewModelFactory _viewModelFactory;
         private readonly INavigationStore _navigationStore;
 
-        public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
+        public ViewModelBase CurrentViewModel => _navigationStore.CurrentTabViewModel;
         public IAuthenticator Authenticator { get; }
 
         public bool IsLoggedIn => Authenticator.IsLoggedIn;
@@ -28,6 +28,7 @@ namespace TaskLinerClientApp.ViewModels
                              IViewModelFactory viewModelFactory)
         {
             Authenticator = authenticator;
+
             _navigationStore = navigationStore;
             _viewModelFactory = viewModelFactory;
 
