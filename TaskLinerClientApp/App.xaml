@@ -2,8 +2,59 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:TaskLinerClientApp"
-             StartupUri="MainWindow.xaml">
+             xmlns:viewmodels="clr-namespace:TaskLinerClientApp.ViewModels"
+             xmlns:tabvm="clr-namespace:TaskLinerClientApp.ViewModels.Tabs"
+             xmlns:views="clr-namespace:TaskLinerClientApp.Views"
+             xmlns:tabviews="clr-namespace:TaskLinerClientApp.Views.Tabs"
+             xmlns:controls="clr-namespace:TaskLinerClientApp.Controls"
+             xmlns:widgets="clr-namespace:TaskLinerClientApp.ViewModels.Widgets">
+    
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source= "/Styles/singlebuttontheme.xaml" />
+                <ResourceDictionary Source= "/Styles/TextStyles.xaml" />
+                <ResourceDictionary Source= "/Styles/TooltipStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type widgets:TimerHomeWidgetViewModel}">
+                <controls:TimerHomeWidget/>
+            </DataTemplate>
+
+
+            <DataTemplate DataType="{x:Type viewmodels:AuthViewModel}">
+                <views:AuthView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type tabvm:MakeCompanyViewModel}">
+                <tabviews:MakeCompanyView/>
+            </DataTemplate>
+
+
+            <DataTemplate DataType="{x:Type tabvm:ProjectBoardTabViewModel}">
+                <tabviews:TabProjectBoard/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:MainViewModel}">
+                <views:HomeView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
+                <views:HomeView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type tabvm:HomeTabViewModel}">
+                <tabviews:TabHomeView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type tabvm:ProjectsTabViewModel}">
+                <tabviews:TabProjectsView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type tabvm:CompaniesTabViewModel}">
+                <tabviews:TabCompaniesView/>
+            </DataTemplate>
+        </ResourceDictionary>
+
     </Application.Resources>
 </Application>

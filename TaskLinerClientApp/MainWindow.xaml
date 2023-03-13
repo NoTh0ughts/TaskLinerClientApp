@@ -3,10 +3,28 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TaskLinerClientApp"
+        xmlns:controls="clr-namespace:TaskLinerClientApp.Controls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Task Liner" 
+        Height="600" Width="800" 
+        MinWidth="600" MinHeight="400"
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStyle="None"
+        ResizeMode="CanResizeWithGrip"
+        FontFamily="Helvetica" 
+        FontSize="18" 
+        WindowStartupLocation="CenterScreen">
 
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+       
+        <DockPanel Grid.Row="1">
+            <ContentControl DockPanel.Dock="Top" Content="{Binding CurrentViewModel}"/>
+        </DockPanel>
     </Grid>
 </Window>

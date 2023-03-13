@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="TaskLinerClientApp.Controls.TaskListWidget"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TaskLinerClientApp.Controls"
+             mc:Ignorable="d">
+    <Grid Background="Transparent" HorizontalAlignment="Stretch">
+        <ListView Background="Transparent" BorderThickness="0">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel VerticalAlignment="Top"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment"  Value="Stretch"></Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
+
+            <ListViewItem>
+                <Border BorderThickness="1" BorderBrush="AliceBlue" CornerRadius="5" Padding="5">
+                    <DockPanel VerticalAlignment="Center" HorizontalAlignment="Stretch" >
+                        <CheckBox VerticalAlignment="Center"/>
+                        <TextBlock Style="{StaticResource font_style_black}" Text="Task title" Margin="10 0 0 0"/>
+                        <TextBlock Style="{StaticResource font_style_black}" 
+                               Text="Remaining time" 
+                               FontSize="15" 
+                               Margin="20 0 0 0" 
+                               HorizontalAlignment="Right"/>
+                    </DockPanel>
+                </Border>
+            </ListViewItem>
+            <ListViewItem>
+                <Border BorderThickness="1" BorderBrush="AliceBlue" CornerRadius="5" Padding="5">
+                    <DockPanel VerticalAlignment="Center" HorizontalAlignment="Stretch" >
+                        <CheckBox VerticalAlignment="Center"/>
+                        <TextBlock Style="{StaticResource font_style_black}" Text="Task title" Margin="10 0 0 0"/>
+                        <TextBlock Style="{StaticResource font_style_black}" 
+                               Text="Remaining time" 
+                               FontSize="15" 
+                               Margin="20 0 0 0" 
+                               HorizontalAlignment="Right"/>
+                    </DockPanel>
+                </Border>
+
+            </ListViewItem>
+            <ListViewItem>
+                <Border BorderThickness="1" BorderBrush="AliceBlue" CornerRadius="5" Padding="5">
+                    <DockPanel VerticalAlignment="Center" HorizontalAlignment="Stretch" >
+                        <CheckBox VerticalAlignment="Center"/>
+                        <TextBlock Style="{StaticResource font_style_black}" Text="Task title" Margin="10 0 0 0"/>
+                        <TextBlock Style="{StaticResource font_style_black}" 
+                               Text="Remaining time" 
+                               FontSize="15" 
+                               Margin="20 0 0 0" 
+                               HorizontalAlignment="Right"/>
+                    </DockPanel>
+                </Border>
+
+            </ListViewItem>
+        </ListView>  
+    </Grid>
+</UserControl>
